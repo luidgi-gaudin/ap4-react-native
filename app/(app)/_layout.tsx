@@ -1,9 +1,21 @@
-import { Tabs } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
 import { Header } from '@/components/layout/Header';
+import { useAuth } from '@/context/auth.context';
+import { Text } from 'react-native';
 
 export default function AppLayout() {
+    const { user, isLoading } = useAuth();
+
+    if (isLoading) {
+        return <Text>Loading...</Text>;
+    }
+
+    if (!user) {
+        return <Redirect href="/(auth)/login" />;
+    }
+
     return (
         <Tabs
             screenOptions={{

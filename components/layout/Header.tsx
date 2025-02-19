@@ -1,4 +1,3 @@
-// components/layout/Header.tsx
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';

@@ -1,16 +1,21 @@
-import { Tabs } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import { colors } from '@/constants/colors';
 import { Header } from '@/components/layout/Header';
+import { useAuth } from '@/context/auth.context';
 
 export default function AuthLayout() {
+    const { user } = useAuth();
+
+    if (user) {
+        return <Redirect href="/(app)/dashboard" />;
+    }
+
     return (
         <Tabs
             screenOptions={{
                 header: ({ route }) => (
-                    <Header
-                        title={route.name === 'login' ? 'Connexion' : 'Inscription'}
-                    />
+                    <Header title={route.name === 'login' ? 'Connexion' : 'Inscription'} />
                 ),
                 tabBarActiveTintColor: colors.primary.main,
                 tabBarInactiveTintColor: colors.text.secondary,

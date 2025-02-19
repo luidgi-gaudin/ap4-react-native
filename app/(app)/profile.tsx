@@ -2,14 +2,27 @@ import {Text, StyleSheet, View} from 'react-native';
 import {useRouter} from "expo-router";
 import { Button } from '@/components/ui/Button';
 import { colors } from '@/constants/colors';
+import { logOut } from '@/services/auth.service';
+import {useAuth} from "@/context/auth.context";
 
 export default function Profile() {
   const router = useRouter();
+
+  const user = useAuth().user;
+
+  function handleLogout() {
+    try {
+      logOut();
+      router.push('/(auth)/login');
+    }catch {
+        console.log('Erreur lors de la déconnexion');
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.name}>Nom de l'utilisateur</Text>
-        <Text style={styles.email}>email@gsb.fr</Text>
+        <Text style={styles.email}>{user?.email}</Text>
       </View>
       <View style={styles.content}>
         <Text style={styles.label}>Département</Text>
@@ -20,7 +33,7 @@ export default function Profile() {
       <Button
         title="Se déconnecter"
         variant="danger"
-        onPress={() => {router.push('/(auth)/login')}}
+        onPress={() => {handleLogout()}}
       />
     </View>
   );
