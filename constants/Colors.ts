@@ -1,26 +1,85 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+type ColorVariants = {
+    light: string;
+    main: string;
+    dark: string;
 };
+
+type TextColors = {
+    primary: string;
+    secondary: string;
+    disabled: string;
+};
+
+type SystemColors = {
+    ios: string;
+    android: string;
+};
+
+type Colors = {
+    primary: ColorVariants;
+    secondary: ColorVariants;
+    success: ColorVariants;
+    warning: ColorVariants;
+    error: ColorVariants;
+    info: ColorVariants;
+    background: ColorVariants;
+    text: TextColors;
+    divider: string;
+    border: string;
+    system: {
+        statusBar: SystemColors;
+        ripple: string;
+    };
+};
+
+export const colors: Colors = {
+    primary: {
+        light: '#66B2FF',
+        main: '#007AFF',
+        dark: '#0055B2'
+    },
+    secondary: {
+        light: '#A6ACB2',
+        main: '#6C757D',
+        dark: '#495057'
+    },
+    success: {
+        light: '#48C774',
+        main: '#28A745',
+        dark: '#1E7E34'
+    },
+    warning: {
+        light: '#FFD54F',
+        main: '#FFC107',
+        dark: '#FFA000'
+    },
+    error: {
+        light: '#EF5350',
+        main: '#DC3545',
+        dark: '#C62828'
+    },
+    info: {
+        light: '#4FC3F7',
+        main: '#17A2B8',
+        dark: '#0288D1'
+    },
+    background: {
+        light: '#FFFFFF',
+        main: '#F8F9FA',
+        dark: '#121212'
+    },
+    text: {
+        primary: '#212529',
+        secondary: '#6C757D',
+        disabled: '#ADB5BD'
+    },
+    divider: '#E9ECEF',
+    border: '#DEE2E6',
+    system: {
+        statusBar: {
+            ios: '#000000',
+            android: '#000000'
+        },
+        ripple: '#00000020'
+    }
+} as const;
