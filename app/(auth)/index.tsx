@@ -4,7 +4,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'reac
     import { useState } from 'react';
     import { signIn } from '@/services/auth.service';
 
-    export default function Login() {
+    export default function Index() {
         const router = useRouter();
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');

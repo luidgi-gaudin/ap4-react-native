@@ -13,7 +13,9 @@ export default function Profile() {
   function handleLogout() {
     try {
       logOut();
-      router.push('/(auth)/login');
+
+      // @ts-ignore
+      router.navigate('/(auth)');
     }catch {
         console.log('Erreur lors de la déconnexion');
     }

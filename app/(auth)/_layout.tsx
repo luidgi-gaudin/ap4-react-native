@@ -5,7 +5,11 @@ import { Header } from '@/components/layout/Header';
 import { useAuth } from '@/context/auth.context';
 
 export default function AuthLayout() {
-    const { user } = useAuth();
+    const { user, isLoading } = useAuth();
+
+    if (isLoading) {
+        return null;
+    }
 
     if (user) {
         return <Redirect href="/(app)/dashboard" />;
@@ -15,7 +19,7 @@ export default function AuthLayout() {
         <Tabs
             screenOptions={{
                 header: ({ route }) => (
-                    <Header title={route.name === 'login' ? 'Connexion' : 'Inscription'} />
+                    <Header title={route.name === 'index' ? 'Connexion' : 'Inscription'} />
                 ),
                 tabBarActiveTintColor: colors.primary.main,
                 tabBarInactiveTintColor: colors.text.secondary,
@@ -26,7 +30,7 @@ export default function AuthLayout() {
             }}
         >
             <Tabs.Screen
-                name="login"
+                name="index"
                 options={{
                     title: 'Connexion',
                     tabBarIcon: ({ color }) => (

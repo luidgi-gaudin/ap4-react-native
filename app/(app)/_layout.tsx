@@ -13,7 +13,8 @@ export default function AppLayout() {
     }
 
     if (!user) {
-        return <Redirect href="/(auth)/login" />;
+        // @ts-ignore
+        return <Redirect href="/(auth)" />;
     }
 
     return (
