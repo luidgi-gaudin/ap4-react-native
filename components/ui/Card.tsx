@@ -1,5 +1,4 @@
 import { View, StyleSheet, ViewProps } from 'react-native';
-import { colors } from '@/constants/colors';
 
 interface CardProps extends ViewProps {
     children: React.ReactNode;
@@ -15,13 +14,18 @@ export function Card({ children, style, ...props }: CardProps) {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: colors.background.main,
-        borderRadius: 8,
+        backgroundColor: '#E0E5EC',
+        borderRadius: 16,
         padding: 16,
-        elevation: 2,
-        shadowColor: colors.text.primary,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4
-    }
+        shadowColor: '#A3B1C6',
+        shadowOffset: {
+            width: 8,
+            height: 8,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 12,
+        elevation: 8,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.2)',
+    },
 });

@@ -26,22 +26,32 @@ export function StatusBadge({ status }: StatusBadgeProps) {
   const config = statusConfig[status];
 
   return (
-    <View style={[styles.badge, { backgroundColor: config.color }]}>
-      <Text style={styles.text}>{config.label}</Text>
-    </View>
+      <View style={[styles.badge, { backgroundColor: config.color }]}>
+        <Text style={styles.text}>{config.label}</Text>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
   badge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-    alignSelf: 'flex-start'
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+    alignSelf: 'flex-start',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   text: {
     color: colors.background.light,
     fontSize: 12,
-    fontWeight: '500'
+    fontWeight: '600',
   }
 });

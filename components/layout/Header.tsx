@@ -32,10 +32,18 @@ export function Header({ title, showBackButton }: HeaderProps) {
 const styles = StyleSheet.create({
     container: {
         height: 80,
-        backgroundColor: colors.background.light,
+        backgroundColor: '#E0E5EC',
+        paddingTop: 30,
+        shadowColor: '#A3B1C6',
+        shadowOffset: {
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        elevation: 8,
         borderBottomWidth: 1,
-        borderBottomColor: colors.border,
-        paddingTop: 30
+        borderBottomColor: 'rgba(255, 255, 255, 0.2)',
     },
     content: {
         flex: 1,
@@ -48,7 +56,17 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#E0E5EC',
+        borderRadius: 20,
+        shadowColor: '#A3B1C6',
+        shadowOffset: {
+            width: 3,
+            height: 3,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        elevation: 5,
     },
     placeholder: {
         width: 40
@@ -58,6 +76,9 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         color: colors.text.primary,
         textAlign: 'center',
-        flex: 1
+        flex: 1,
+        textShadowColor: 'rgba(255, 255, 255, 0.5)',
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 2
     }
 });
