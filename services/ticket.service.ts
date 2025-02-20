@@ -1,5 +1,5 @@
 import {db} from "@/config/firebase.config";
-import {collection, getDocs} from "@firebase/firestore";
+import {addDoc, collection, getDocs} from "@firebase/firestore";
 
 
 interface Ticket {
@@ -8,13 +8,29 @@ interface Ticket {
     priority: string;
 }
 
-const getAllTickets = async (): Promise<Ticket[]> => {
-    const TicketsCollection = collection(db, 'tickets');
-    const snapshot = await getDocs(TicketsCollection);
-    return snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Ticket)
-    }));
+async function getAllTickets() : Promise<Ticket[]> {
+    try {
+        const TicketsCollection = collection(db, 'tickets');
+        const snapshot = await getDocs(TicketsCollection);
+        return snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...(doc.data() as Ticket)
+        }));
+    } catch (e) {
+        console.error('Error fetching tickets', e);
+        return [];
+    }
 }
 
-export {getAllTickets};
+async function createTicket(ticket: Ticket) {
+    try {
+
+    const docRef = await addDoc(collection(db, 'tickets'), ticket);
+    return docRef.id;
+    } catch (e) {
+        console.error('Error creating ticket', e);
+        return null;
+    }
+}
+
+export {getAllTickets, createTicket};
