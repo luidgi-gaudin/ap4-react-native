@@ -24,7 +24,6 @@ async function getAllTickets() : Promise<Ticket[]> {
 
 async function createTicket(ticket: Ticket) {
     try {
-
     const docRef = await addDoc(collection(db, 'tickets'), ticket);
     return docRef.id;
     } catch (e) {
