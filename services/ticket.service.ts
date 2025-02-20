@@ -16,3 +16,5 @@ const getAllTickets = async (): Promise<Ticket[]> => {
         ...(doc.data() as Ticket)
     }));
 }
+
+export {getAllTickets};
