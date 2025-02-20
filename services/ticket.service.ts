@@ -1,5 +1,5 @@
 import {db} from "@/config/firebase.config";
-import {addDoc, collection, getDocs} from "@firebase/firestore";
+import {addDoc, collection, doc, getDoc, getDocs} from "@firebase/firestore";
 
 
 interface Ticket {
@@ -30,6 +30,18 @@ async function createTicket(ticket: Ticket) {
         console.error('Error creating ticket', e);
         return null;
     }
+}
+
+async function getTicketById(id: string) {
+    try {
+        const docRef = doc(db, 'tickets', id);
+        const docSnap = await getDoc(docRef);
+        return docSnap.data() as Ticket;
+    } catch (e) {
+        console.error('Error fetching ticket', e);
+        return null;
+    }
+
 }
 
 export {getAllTickets, createTicket};
