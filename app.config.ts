@@ -2,7 +2,8 @@ import { ExpoConfig } from 'expo/config';
 
     const config: ExpoConfig = {
       name: "ticket-app",
-      slug: "ticket-1.0.0",
+      owner: "ultime69",
+      slug: "ap4-react-native",
       orientation: "portrait",
       icon: "./assets/icon.png",
       userInterfaceStyle: "light",
@@ -18,6 +19,7 @@ import { ExpoConfig } from 'expo/config';
         supportsTablet: true
       },
       android: {
+        package: "com.ultime69.ticketapp",
         adaptiveIcon: {
           foregroundImage: "./assets/adaptive-icon.png",
           backgroundColor: "#ffffff"
@@ -30,7 +32,13 @@ import { ExpoConfig } from 'expo/config';
         firebaseStorageBucket: process.env.FIREBASE_STORAGE_BUCKET,
         firebaseMessagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
         firebaseAppId: process.env.FIREBASE_APP_ID,
-      }
+          eas: {
+            projectId: "70d0970a-f207-4753-bd14-f89ad1be4f9c"
+          }
+        }
+
+
+
     };
 
     export default config;

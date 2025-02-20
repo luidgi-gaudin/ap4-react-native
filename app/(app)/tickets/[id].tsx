@@ -6,6 +6,7 @@ import { getTicketById, updateTicketStatus } from '@/services/ticket.service';
 import { Button } from '@/components/ui/Button';
 
 export interface Ticket {
+  id?: string;
   title: string;
   status: 'opened' | 'in_progress' | 'resolved';
   priority: 'low' | 'normal' | 'high';

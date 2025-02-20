@@ -1,9 +1,9 @@
 import {FlatList, StyleSheet, Text, View, TouchableOpacity, ActivityIndicator} from 'react-native';
 import { colors } from '@/constants/colors';
-import { useRouter } from "expo-router";
+import {useFocusEffect, useRouter} from "expo-router";
 import { Feather } from '@expo/vector-icons';
 import { getAllTickets } from "@/services/ticket.service";
-import { useEffect, useState } from 'react';
+import {useCallback, useState} from 'react';
 
 interface Ticket {
     id: string;
@@ -20,14 +20,18 @@ export default function TicketsList() {
     const [tickets, setTickets] = useState<Ticket[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
         const fetchTickets = async () => {
             const data = await getAllTickets();
+            console.log('Fetched tickets:', data); // Pour vérifier les données reçues
             setTickets(data as Ticket[]);
             setLoading(false);
         };
-        fetchTickets();
-    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchTickets();
+        }, [])
+    );
 
     const getStatusText = (status: Ticket['status']) => {
         const statusMap = {
@@ -63,22 +67,44 @@ export default function TicketsList() {
         }[priority]
     });
 
-    const renderTicket = ({ item }: { item: Ticket }) => (
-        <TouchableOpacity
-            style={styles.ticketItem}
-            onPress={() => router.push(`/(app)/tickets/${item.id}`)}
-        >
-            <View style={styles.ticketHeader}>
-                <Text style={styles.ticketName}>{item.title}</Text>
-                <View style={[styles.badge, getBadgeStyle(item.status)]}>
-                    <Text style={styles.badgeText}>{getStatusText(item.status)}</Text>
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('fr-FR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    };
+
+    const renderTicket = ({ item }: { item: Ticket }) => {
+        console.log('Ticket data:', item);
+        const formattedDate = item.createdAt ? formatDate(item.createdAt) : 'Date inconnue';
+        console.log('Formatted date:', formattedDate);
+
+        return (
+            <TouchableOpacity
+                style={styles.ticketItem}
+                onPress={() => router.push(`/(app)/tickets/${item.id}`)}
+            >
+                <View style={styles.ticketHeader}>
+                    <Text style={styles.ticketName}>{item.title}</Text>
+                    <View style={[styles.badge, getBadgeStyle(item.status)]}>
+                        <Text style={styles.badgeText}>{getStatusText(item.status)}</Text>
+                    </View>
                 </View>
-            </View>
-            <View style={[styles.badge, getPriorityBadgeStyle(item.priority)]}>
-                <Text style={styles.badgeText}>{getPriorityText(item.priority)}</Text>
-            </View>
-        </TouchableOpacity>
-    );
+                <View style={styles.ticketFooter}>
+                    <Text style={styles.dateText}>
+                        {formattedDate}
+                    </Text>
+                    <View style={[styles.badge, getPriorityBadgeStyle(item.priority)]}>
+                        <Text style={styles.badgeText}>{getPriorityText(item.priority)}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        );
+    };
 
     if (loading) {
         return (
@@ -179,6 +205,17 @@ const styles = StyleSheet.create({
         color: colors.background.light,
         fontSize: 12,
         fontWeight: '600',
+    },
+    ticketFooter: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 8
+    },
+    dateText: {
+        fontSize: 12,
+        color: colors.text.secondary,
+        fontWeight: '500'
     },
     fab: {
         position: 'absolute',
