@@ -44,4 +44,4 @@ async function getTicketById(id: string) {
 
 }
 
-export {getAllTickets, createTicket};
+export {getAllTickets, createTicket, getTicketById};
